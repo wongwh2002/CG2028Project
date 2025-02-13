@@ -1357,12 +1357,11 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_line    0x00000a73       0x7b ./Startup/startup_stm32l475vgtx.o
 
 .debug_line_str
-                0x00000000       0x6e
+                0x00000000       0xa9
  .debug_line_str
-                0x00000000       0x4b ./Src/asm_func.o
+                0x00000000       0x4d ./Src/asm_func.o
  .debug_line_str
-                0x0000004b       0x23 ./Startup/startup_stm32l475vgtx.o
-                                 0x5c (size before relaxing)
+                0x0000004d       0x5c ./Startup/startup_stm32l475vgtx.o
 
 .debug_info     0x00000000      0x314
  .debug_info    0x00000000       0x24 ./Src/asm_func.o
@@ -1386,13 +1385,13 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_aranges
                 0x00000060       0x28 ./Startup/startup_stm32l475vgtx.o
 
-.debug_str      0x00000000     0x7ae2
- .debug_str     0x00000000       0x59 ./Src/asm_func.o
- .debug_str     0x00000059     0x6b12 ./Src/main.o
+.debug_str      0x00000000     0x7b1d
+ .debug_str     0x00000000       0x5b ./Src/asm_func.o
+ .debug_str     0x0000005b     0x6b4b ./Src/main.o
                                0x6c56 (size before relaxing)
- .debug_str     0x00006b6b      0xf46 ./Src/sysmem.o
+ .debug_str     0x00006ba6      0xf46 ./Src/sysmem.o
                                0x6088 (size before relaxing)
- .debug_str     0x00007ab1       0x31 ./Startup/startup_stm32l475vgtx.o
+ .debug_str     0x00007aec       0x31 ./Startup/startup_stm32l475vgtx.o
                                  0x78 (size before relaxing)
 
 .debug_rnglists

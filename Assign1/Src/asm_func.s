@@ -35,7 +35,11 @@ asm_func:
 
  	POP {R14}
 
-	BX LR
+	BX LRx
+	//cannot go back to main anymore if comment push and pop in (i), but program works in (ii)
+	//c to asm_func, LR changed, to store return value back to C
+	//asm -> subroutine, LR updated again, enable program to go back from subroutine to asm_func
+	//asm -> c LR1 is lost bc of that, therefore need to push and pop LR to save the value of them
 
 SUBROUTINE:
 

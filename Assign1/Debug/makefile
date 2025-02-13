@@ -59,8 +59,8 @@ all: main-build
 main-build: Assign1.elf secondary-outputs
 
 # Tool invocations
-Assign1.elf Assign1.map: $(OBJS) $(USER_OBJS) /Users/wongwh/Desktop/NUS/Y2S1/Y2S2/CG2028/Assign1/STM32L475VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Assign1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/wongwh/Desktop/NUS/Y2S1/Y2S2/CG2028/Assign1/STM32L475VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Assign1.map" -Wl,--gc-sections -static -specs=rdimon.specs -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Assign1.elf Assign1.map: $(OBJS) $(USER_OBJS) /Users/wongwh/Desktop/NUS/Y2S2/CG2028Project/Assign1/STM32L475VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Assign1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/wongwh/Desktop/NUS/Y2S2/CG2028Project/Assign1/STM32L475VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Assign1.map" -Wl,--gc-sections -static -specs=rdimon.specs -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
