@@ -34,7 +34,7 @@ int main(void)
 	int entry[5] = {1,2,3,4,5};
 	int exit[F][S] = {{1,2},{2,3},{3,4}};
 	int result[F][S] = {{F,S},{0,0},{0,0}};
-
+	printf("FFFFF");
 	asm_func((int*)building, (int*)entry, (int*)exit, (int*)result); //call asm function
 
 	// print result[][]
