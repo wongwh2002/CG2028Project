@@ -29,6 +29,7 @@
 @ write your program from here:
 
 asm_func:
+	PUSH {R4-R9}
 
 
 	.equ F, 2 //num floor
@@ -77,6 +78,7 @@ asm_func:
 	//BL SUBROUTINE
 
  	//POP {R14}
+ 	POP {R4-R9}
 
 	BX LR
 	//cannot go back to main anymore if comment push and pop in (i), but program works in (ii)
