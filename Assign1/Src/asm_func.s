@@ -22,14 +22,24 @@
 
 @ Look-up table for registers:
 
-@ R0 ...
-@ R1 ...
-@ ...
+@ R0 -  Building
+@ R1 - Entry
+@ R2 - Exit and
+@      Reused to store #12 for SUB operation, after LOOP_SUM
+@ R3 - Result
+@ R4 - Size of building (number_of_loops_left index!)
+@ R5 - Sum of entry cars
+@ R6 - Size of entry (number_of_loops_left index!) and
+@      Temp register used in LOOP_COUNT to load building[A][B]
+@      and store back to result[A][B]
+@ R7 - Temp register to load entry[A] and exit[A][B]
+@ R8 - Temp register used to store available slots in each section
+
 
 @ write your program from here:
 
 asm_func:
-	PUSH {R4-R9}
+	PUSH {R4-R8}
 
 
 	.equ F, 2 //num floor
@@ -37,9 +47,8 @@ asm_func:
 	.equ E, 5 //size of entry
 	.equ MAX_CAP, 12
 
-	MOV R4, #F
-	MOV R5, #S
-	MOV R8, #MAX_CAP
+	LDR R4, [R3]
+	LDR R5, [R3, #4]
 
 	MUL R4, R5 // this is ur index for the 1d arr /size
 
@@ -51,16 +60,17 @@ asm_func:
 		SUBS R6, #1
 		BGT LOOP_SUM
 
+	MOV R1, #MAX_CAP
 	//Over here, R5 = total sum, R6 & R7 useless, R4 is index
 	LOOP_COUNT:
 		LDR R6, [R0], #4 //store i in building to R6
 		LDR R7, [R2], #4 //store i in exit to R7
-		SUB R9, R8, R6 //R8 == 12
-		//R9 IS AVAILABLE
-		CMP R9, R5
+		SUB R8, R1, R6 //R1 == 12
+		//R8 IS AVAILABLE slots in section
+		CMP R8, R5
 		ITTEE LE //if available slot <= total sum
-			SUBLE R5, R9
-			MOVLE R6, R8
+			SUBLE R5, R8
+			MOVLE R6, R1
 			ADDGT R6, R5
 			MOVGT R5, #0
 
@@ -68,7 +78,10 @@ asm_func:
 		SUB R6, R7
 		STR R6, [R3], #4
 
-		SUBS R4, #1
+
+		SUBS R4, #1 // decrement number_of_loops_left index,
+		            // exit loop when R4 == 1 at before this line
+		            // R4 == 0 aft this line!
 		BGT LOOP_COUNT
 
 
@@ -78,7 +91,7 @@ asm_func:
 	//BL SUBROUTINE
 
  	//POP {R14}
- 	POP {R4-R9}
+ 	EXIT_LOOP: POP {R4-R8}
 
 	BX LR
 	//cannot go back to main anymore if comment push and pop in (i), but program works in (ii)

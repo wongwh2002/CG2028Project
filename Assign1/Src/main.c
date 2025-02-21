@@ -26,20 +26,7 @@
 extern void asm_func(int* arg1, int* arg2, int* arg3, int* arg4);
 extern void initialise_monitor_handles(void);
 
-//void print(int building, int result)
-//{
-//	int i,j;
-//	// print result[][]
-//	printf("RESULT\n");
-//	for (i=0; i<F; i++)
-//	{
-//		for (j=0; j<S; j++)
-//		{
-//			building[i][j] = result[i][j];
-//			printf("%d\t", building[i][j]);
-//		}
-//	printf("\n");
-//}
+
 
 int main(void)
 {
@@ -127,5 +114,20 @@ int main(void)
     }
 	printf("\n");
 }
+
+//void print(int building, int result)
+//{
+//	int i,j;
+//	// print result[][]
+//	printf("RESULT\n");
+//	for (i=0; i<F; i++)
+//	{
+//		for (j=0; j<S; j++)
+//		{
+//			building[i][j] = result[i][j];
+//			printf("%d\t", building[i][j]);
+//		}
+//	printf("\n");
+//}
 
 
