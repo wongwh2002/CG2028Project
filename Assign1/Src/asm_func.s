@@ -41,10 +41,8 @@
 asm_func:
 	PUSH {R4-R7}
 
-
 	.equ F, 2 //num floor
 	.equ S, 3 //num section
-	.equ E, 5 //size of entry
 	.equ MAX_CAP, 12
 
 	LDR R4, [R3] //@@@@@@
@@ -52,13 +50,15 @@ asm_func:
 
 	MUL R4, R5 // this is ur index for the 1d arr /size
 
-	MOV R5, #0
-	MOV R6, #E
-	LOOP_SUM:
-		LDR R7, [R1], #4 //ldr entry arr into R6, R5 is sum
-		ADD R5, R7
-		SUBS R6, #1
-		BGT LOOP_SUM
+	LDR R5, [R1], #4
+	LDR R6, [R1], #4
+	ADD R5, R6
+	LDR R6, [R1], #4
+	ADD R5, R6
+	LDR R6, [R1], #4
+	ADD R5, R6
+	LDR R6, [R1], #4
+	ADD R5, R6
 
 	MOV R1, #MAX_CAP
 	//Over here, R5 = total sum, R6 & R7 useless, R4 is index
@@ -82,7 +82,6 @@ asm_func:
 		SUB R6, R7
 		STR R6, [R3], #4
 
-
 		SUBS R4, #1 // decrement number_of_loops_left index,
 		            // exit loop when R4 == 1 at before this line
 		            // R4 == 0 aft this line!
@@ -95,7 +94,7 @@ asm_func:
 	//BL SUBROUTINE
 
  	//POP {R14}
- 	EXIT_LOOP: POP {R4-R7}
+ 	POP {R4-R7}
 
 	BX LR
 	//cannot go back to main anymore if comment push and pop in (i), but program works in (ii)
