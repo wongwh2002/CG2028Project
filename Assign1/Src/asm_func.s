@@ -47,8 +47,8 @@ asm_func:
 	.equ E, 5 //size of entry
 	.equ MAX_CAP, 12
 
-	LDR R4, [R3]
-	LDR R5, [R3, #4]
+	LDR R4, [R3] //@@@@@@
+	LDR R5, [R3, #4] //@@@@@@
 
 	MUL R4, R5 // this is ur index for the 1d arr /size
 
