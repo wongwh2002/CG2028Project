@@ -1349,11 +1349,11 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.macos64_1.1.0.202410301201/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libm.a
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.macos64_1.1.0.202410301201/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m/nofp/libgcc.a
 
-.debug_line     0x00000000      0xbfe
- .debug_line    0x00000000       0x65 ./Src/asm_func.o
- .debug_line    0x00000065      0x611 ./Src/main.o
- .debug_line    0x00000676      0x50d ./Src/sysmem.o
- .debug_line    0x00000b83       0x7b ./Startup/startup_stm32l475vgtx.o
+.debug_line     0x00000000      0xc00
+ .debug_line    0x00000000       0x67 ./Src/asm_func.o
+ .debug_line    0x00000067      0x611 ./Src/main.o
+ .debug_line    0x00000678      0x50d ./Src/sysmem.o
+ .debug_line    0x00000b85       0x7b ./Startup/startup_stm32l475vgtx.o
 
 .debug_line_str
                 0x00000000       0xa9

@@ -27,13 +27,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 0000002a  00000000  00000000  000061d0  2**0
                   CONTENTS, READONLY
- 12 .debug_line   00000bfe  00000000  00000000  000061fa  2**0
+ 12 .debug_line   00000c00  00000000  00000000  000061fa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_line_str 000000a9  00000000  00000000  00006df8  2**0
+ 13 .debug_line_str 000000a9  00000000  00000000  00006dfa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_info   000003f4  00000000  00000000  00006ea1  2**0
+ 14 .debug_info   000003f4  00000000  00000000  00006ea3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_abbrev 000001d8  00000000  00000000  00007295  2**0
+ 15 .debug_abbrev 000001d8  00000000  00000000  00007297  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_aranges 00000088  00000000  00000000  00007470  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -84,85 +84,91 @@ Disassembly of section .text:
 @ write your program from here:
 
 asm_func:
-	PUSH {R4-R8}
- 80001d0:	e92d 01f0 	stmdb	sp!, {r4, r5, r6, r7, r8}
+	PUSH {R4-R7}
+ 80001d0:	b4f0      	push	{r4, r5, r6, r7}
 	.equ F, 2 //num floor
 	.equ S, 3 //num section
 	.equ E, 5 //size of entry
 	.equ MAX_CAP, 12
 
 	LDR R4, [R3]
- 80001d4:	681c      	ldr	r4, [r3, #0]
+ 80001d2:	681c      	ldr	r4, [r3, #0]
 	LDR R5, [R3, #4]
- 80001d6:	685d      	ldr	r5, [r3, #4]
+ 80001d4:	685d      	ldr	r5, [r3, #4]
 
 	MUL R4, R5 // this is ur index for the 1d arr /size
- 80001d8:	fb05 f404 	mul.w	r4, r5, r4
+ 80001d6:	fb05 f404 	mul.w	r4, r5, r4
 
 	MOV R5, #0
- 80001dc:	f04f 0500 	mov.w	r5, #0
+ 80001da:	f04f 0500 	mov.w	r5, #0
 	MOV R6, #E
- 80001e0:	f04f 0605 	mov.w	r6, #5
+ 80001de:	f04f 0605 	mov.w	r6, #5
 
-080001e4 <LOOP_SUM>:
+080001e2 <LOOP_SUM>:
 	LOOP_SUM:
 		LDR R7, [R1], #4 //ldr entry arr into R6, R5 is sum
- 80001e4:	f851 7b04 	ldr.w	r7, [r1], #4
+ 80001e2:	f851 7b04 	ldr.w	r7, [r1], #4
 		ADD R5, R7
- 80001e8:	443d      	add	r5, r7
+ 80001e6:	443d      	add	r5, r7
 		SUBS R6, #1
- 80001ea:	3e01      	subs	r6, #1
+ 80001e8:	3e01      	subs	r6, #1
 		BGT LOOP_SUM
- 80001ec:	dcfa      	bgt.n	80001e4 <LOOP_SUM>
+ 80001ea:	dcfa      	bgt.n	80001e2 <LOOP_SUM>
 
 	MOV R1, #MAX_CAP
- 80001ee:	f04f 010c 	mov.w	r1, #12
+ 80001ec:	f04f 010c 	mov.w	r1, #12
 
-080001f2 <LOOP_COUNT>:
+080001f0 <LOOP_COUNT>:
 	//Over here, R5 = total sum, R6 & R7 useless, R4 is index
 	LOOP_COUNT:
 		LDR R6, [R0], #4 //store i in building to R6
- 80001f2:	f850 6b04 	ldr.w	r6, [r0], #4
+ 80001f0:	f850 6b04 	ldr.w	r6, [r0], #4
 		LDR R7, [R2], #4 //store i in exit to R7
- 80001f6:	f852 7b04 	ldr.w	r7, [r2], #4
+ 80001f4:	f852 7b04 	ldr.w	r7, [r2], #4
 		SUB R6, R1, R6 //R1 == 12
- 80001fa:	eba1 0606 	sub.w	r6, r1, r6
-		//R8 IS AVAILABLE slots in section
+ 80001f8:	eba1 0606 	sub.w	r6, r1, r6
+		//R6 IS AVAILABLE slots in section
 		CMP R6, R5
- 80001fe:	42ae      	cmp	r6, r5
-		ITTEE LE //if available slot <= total sum
- 8000200:	bfd9      	ittee	le
+ 80001fc:	42ae      	cmp	r6, r5
+		ITT LE //if available slot <= total sum
+ 80001fe:	bfdc      	itt	le
+			//if true then
 			SUBLE R5, R6
- 8000202:	1bad      	suble	r5, r5, r6
+ 8000200:	1bad      	suble	r5, r5, r6
 			MOVLE R6, R1
- 8000204:	460e      	movle	r6, r1
+ 8000202:	460e      	movle	r6, r1
+		ITTT GT
+ 8000204:	bfc2      	ittt	gt
+			// else then
+			SUBGT R6, R1, R6 //make R6 current used slot in building[a][b]
+ 8000206:	1b8e      	subgt	r6, r1, r6
 			ADDGT R6, R5
- 8000206:	1976      	addgt	r6, r6, r5
+ 8000208:	1976      	addgt	r6, r6, r5
 			MOVGT R5, #0
- 8000208:	2500      	movgt	r5, #0
+ 800020a:	2500      	movgt	r5, #0
 
 		//R6 is current updated i, now i want car to exit
 		SUB R6, R7
- 800020a:	eba6 0607 	sub.w	r6, r6, r7
+ 800020c:	eba6 0607 	sub.w	r6, r6, r7
 		STR R6, [R3], #4
- 800020e:	f843 6b04 	str.w	r6, [r3], #4
+ 8000210:	f843 6b04 	str.w	r6, [r3], #4
 
 
 		SUBS R4, #1 // decrement number_of_loops_left index,
- 8000212:	3c01      	subs	r4, #1
+ 8000214:	3c01      	subs	r4, #1
 		            // exit loop when R4 == 1 at before this line
 		            // R4 == 0 aft this line!
 		BGT LOOP_COUNT
- 8000214:	dced      	bgt.n	80001f2 <LOOP_COUNT>
+ 8000216:	dceb      	bgt.n	80001f0 <LOOP_COUNT>
 
-08000216 <EXIT_LOOP>:
+08000218 <EXIT_LOOP>:
 
 	//PUSH {R14}
 	//BL SUBROUTINE
 
  	//POP {R14}
- 	EXIT_LOOP: POP {R4-R8}
- 8000216:	e8bd 01f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8}
+ 	EXIT_LOOP: POP {R4-R7}
+ 8000218:	bcf0      	pop	{r4, r5, r6, r7}
 
 	BX LR
  800021a:	4770      	bx	lr

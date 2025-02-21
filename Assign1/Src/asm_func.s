@@ -31,15 +31,15 @@
 @ R5 - Sum of entry cars
 @ R6 - Size of entry (number_of_loops_left index!) and
 @      Temp register used in LOOP_COUNT to load building[A][B]
-@      and store back to result[A][B]
+@      and store back to result[A][B] and
+@      Temp register used to store available slots in each section
 @ R7 - Temp register to load entry[A] and exit[A][B]
-@ R8 - Temp register used to store available slots in each section
 
 
 @ write your program from here:
 
 asm_func:
-	PUSH {R4-R8}
+	PUSH {R4-R7}
 
 
 	.equ F, 2 //num floor
@@ -65,12 +65,16 @@ asm_func:
 	LOOP_COUNT:
 		LDR R6, [R0], #4 //store i in building to R6
 		LDR R7, [R2], #4 //store i in exit to R7
-		SUB R8, R1, R6 //R1 == 12
-		//R8 IS AVAILABLE slots in section
-		CMP R8, R5
-		ITTEE LE //if available slot <= total sum
-			SUBLE R5, R8
+		SUB R6, R1, R6 //R1 == 12
+		//R6 IS AVAILABLE slots in section
+		CMP R6, R5
+		ITT LE //if available slot <= total sum
+			//if true then
+			SUBLE R5, R6
 			MOVLE R6, R1
+		ITTT GT
+			// else then
+			SUBGT R6, R1, R6 //make R6 current used slot in building[a][b]
 			ADDGT R6, R5
 			MOVGT R5, #0
 
@@ -91,7 +95,7 @@ asm_func:
 	//BL SUBROUTINE
 
  	//POP {R14}
- 	EXIT_LOOP: POP {R4-R8}
+ 	EXIT_LOOP: POP {R4-R7}
 
 	BX LR
 	//cannot go back to main anymore if comment push and pop in (i), but program works in (ii)
