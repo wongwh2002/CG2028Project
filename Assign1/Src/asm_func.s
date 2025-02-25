@@ -75,7 +75,7 @@ asm_func:
 			MOVLE R6, R1
 		ITTT GT
 			// else then
-			SUBGT R6, R1, R6 //make R6 current numer of used slots in building[a][b]
+			SUBGT R6, R1, R6 //make R6 current number of used slots in building[a][b]
 			ADDGT R6, R5
 			MOVGT R5, #0
 
