@@ -6,4 +6,6 @@ Assign1/*
 !Assign1/Src/*
 
 !.gitignore
-*.drawio*
+!*.txt
+!*.pdf
+!*.zip
