@@ -17,8 +17,8 @@
 @ CG/[T]EE2028 Assignment 1, Sem 2, AY 2024/25
 @ (c) ECE NUS, 2025
 
-@ Write Student 1’s Name here: Wong Weng Hong
-@ Write Student 2’s Name here: Tng Wen Xi
+@ Write Student 1’s Name here: Wong Weng Hong A0272156E
+@ Write Student 2’s Name here: Tng Wen Xi A0282086Y
 
 @ Look-up table for registers:
 
@@ -39,18 +39,18 @@
 @ write your program from here:
 
 asm_func:
-	PUSH {R4-R7}
 
-	.equ F, 2 //num floor
-	.equ S, 3 //num section
-	.equ MAX_CAP, 12
+	PUSH {R4-R7} // save registers before changing it
+
+	.equ MAX_CAP, 12 // max cars in each section
 
 	LDR R4, [R3]
 	LDR R5, [R3, #4]
 
-	MUL R4, R5 // this is ur index for the 1d arr /size
+	MUL R4, R5 // index and size of 1D buildingArr
 
-	LDR R5, [R1], #4 // Calculate total sum
+	// Calculate total sum here
+	LDR R5, [R1], #4
 	LDR R6, [R1], #4
 	ADD R5, R6
 	LDR R6, [R1], #4
@@ -63,8 +63,8 @@ asm_func:
 	MOV R1, #MAX_CAP
 	// R5 = total sum, R6 & R7 useless, R4 is index
 	LOOP_COUNT:
-		LDR R6, [R0], #4 //store i in building to R6
-		LDR R7, [R2], #4 //store i in exit to R7
+		LDR R6, [R0], #4 //store current section in buildingArr to R6
+		LDR R7, [R2], #4 //store current section in exitArr to R7
 		SUB R6, R1, R6 //R1 == 12
 		//R6 IS AVAILABLE slots in section
 		CMP R6, R5
@@ -78,7 +78,7 @@ asm_func:
 			ADDGT R6, R5
 			MOVGT R5, #0
 
-		//R6 is current updated i, exiting cars
+		//R6 is current updated current section, proceed to exiting cars
 		SUB R6, R7
 		STR R6, [R3], #4
 

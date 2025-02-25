@@ -22,6 +22,8 @@
 
 #define F 3
 #define S 2
+#define F2 4
+#define S2 3
 #define ENTRY_SIZE 5
 
 extern void asm_func(int* arg1, int* arg2, int* arg3, int* arg4);
@@ -30,6 +32,24 @@ extern void initialise_monitor_handles(void);
 void printMatrix(int matrix[F][S]) {
     for (int i = 0; i < F; i++) {
         for (int j = 0; j < S; j++) {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void printMatrix2(int matrix[F2][S2]) {
+    for (int i = 0; i < F2; i++) {
+        for (int j = 0; j < S2; j++) {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void printMatrix0(int matrix[F2][S2]) {
+    for (int i = 0; i < F2; i++) {
+        for (int j = 0; j < S2; j++) {
             printf("%d\t", matrix[i][j]);
         }
         printf("\n");
@@ -69,6 +89,32 @@ int main(void)
 	    printMatrix(result);
 	    printf("\n");
 	}
+
+	int building2[F2][S2] = {{12, 12, 12},{10,5, 5},{3,7, 7}, {8, 8, 8}};
+	int entry2[5] = {12,12,12,12,12};
+	int exit2[F2][S2] = {{1, 2, 3},{3, 4, 1}, {3,6, 1}, {1, 2, 1}};
+	int result2[F2][S2] = {{F2, S2, 0}, {0, 0, 0}, {0,0, 0} , {0, 0, 0}};
+	asm_func((int*)building2, (int*)entry2, (int*)exit2, (int*)result2); //call asm function
+	printf("RESULT6\n");
+	printMatrix2(result2);
+	printf("RESULT7\n");
+
+	int building1[1][1] = {{1}};
+	int entry1[5] = {12,12,12,12,12};
+	int exit1[1][1] = {{1}};
+	int result1[1][2] = {{1, 1}};
+	asm_func((int*)building1, (int*)entry1, (int*)exit1, (int*)result1); //call asm function
+	printf("HARROOOO %d\t\n", result1[0][0]);
+
+
+	int building0[0][0] = {};
+	int entry0[5] = {12,12,12,12,12};
+	int exit0[0][0] = {};
+	int result0[1][2] = {{0, 0}};
+	asm_func((int*)building0, (int*)entry0, (int*)exit0, (int*)result0); //call asm function
+	printf("hrufieabgus");
+
+
 
 //	int result[F][S] = {{F,S},{0,0},{0,0}};
 //	asm_func((int*)buildings[0], (int*)entries[0], (int*)exits[0], (int*)result); //call asm function
