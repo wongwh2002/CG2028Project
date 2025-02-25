@@ -45,12 +45,12 @@ asm_func:
 	.equ S, 3 //num section
 	.equ MAX_CAP, 12
 
-	LDR R4, [R3] //@@@@@@
-	LDR R5, [R3, #4] //@@@@@@
+	LDR R4, [R3]
+	LDR R5, [R3, #4]
 
 	MUL R4, R5 // this is ur index for the 1d arr /size
 
-	LDR R5, [R1], #4
+	LDR R5, [R1], #4 // Calculate total sum
 	LDR R6, [R1], #4
 	ADD R5, R6
 	LDR R6, [R1], #4
@@ -61,7 +61,7 @@ asm_func:
 	ADD R5, R6
 
 	MOV R1, #MAX_CAP
-	//Over here, R5 = total sum, R6 & R7 useless, R4 is index
+	// R5 = total sum, R6 & R7 useless, R4 is index
 	LOOP_COUNT:
 		LDR R6, [R0], #4 //store i in building to R6
 		LDR R7, [R2], #4 //store i in exit to R7
@@ -78,7 +78,7 @@ asm_func:
 			ADDGT R6, R5
 			MOVGT R5, #0
 
-		//R6 is current updated i, now i want car to exit
+		//R6 is current updated i, exiting cars
 		SUB R6, R7
 		STR R6, [R3], #4
 
@@ -87,20 +87,9 @@ asm_func:
 		            // R4 == 0 aft this line!
 		BGT LOOP_COUNT
 
-
-
-
-	//PUSH {R14}
-	//BL SUBROUTINE
-
- 	//POP {R14}
  	POP {R4-R7}
 
 	BX LR
-	//cannot go back to main anymore if comment push and pop in (i), but program works in (ii)
-	//c to asm_func, LR changed, to store return value back to C
-	//asm -> subroutine, LR updated again, enable program to go back from subroutine to asm_func
-	//asm -> c LR1 is lost bc of that, therefore need to push and pop LR to save the value of them
 
 SUBROUTINE:
 
