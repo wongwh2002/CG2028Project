@@ -84,7 +84,7 @@ asm_func:
 
 		SUBS R4, #1 // decrement number_of_loops_left index,
 		            // exit loop when R4 == 1 at before this line
-		            // R4 == 0 aft this line!
+		            // R4 == 0 after this line!
 		BGT LOOP_COUNT
 
  	POP {R4-R7}
