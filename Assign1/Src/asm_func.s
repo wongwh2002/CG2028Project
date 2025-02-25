@@ -22,7 +22,7 @@
 
 @ Look-up table for registers:
 
-@ R0 -  Building
+@ R0 - Building
 @ R1 - Entry and
 @      Reused to store #12 for SUB operation, before LOOP_COUNT
 @ R2 - Exit
